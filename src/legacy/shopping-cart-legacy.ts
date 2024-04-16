@@ -6,7 +6,7 @@ type CartItem = {
 
 type OrderStatus = 'open' | 'closed';
 
-export class ShoppingCart {
+export class ShoppingCartLegacy {
   private readonly _products: CartItem[] = [];
   private _orderStatus: OrderStatus = 'open';
 
@@ -62,7 +62,7 @@ export class ShoppingCart {
   }
 }
 
-const newCart = new ShoppingCart();
+const newCart = new ShoppingCartLegacy();
 
 newCart.addProduct({ id: 'nGo8QH6154', name: 'T-Shirt', price: 199 });
 newCart.addProduct({ id: 'Mn03bO106Z', name: 'Basketball', price: 299.9998 });
