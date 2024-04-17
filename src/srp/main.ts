@@ -10,7 +10,7 @@ import { Order } from './entities/order';
 import { Persistence } from './entities/persistence';
 import { Product } from './entities/product';
 import { ShoppingCart } from './entities/shopping-cart';
-import { FiftyPercentDiscount, NinetyPercentDiscount, ZeroDiscount } from './entities/discounts';
+import { ZeroDiscount, FiftyPercentDiscount, NinetyPercentDiscount } from './entities/discounts';
 
 const calculateFiftyPercentDiscount = new FiftyPercentDiscount();
 const calculateNinetyPercentDiscount = new NinetyPercentDiscount();
@@ -27,5 +27,5 @@ newCart.addProduct(new Product('nGo8QH6154', 'T-Shirt', 199));
 newCart.addProduct(new Product('Mn03bO106Z', 'Basketball', 299.9998));
 newCart.addProduct(new Product('y6X92U9ChH', 'RTX 2060', 299.99));
 
-console.log(newCart.calculateTotalWithDiscount());
+console.log(calculateNinetyPercentDiscount.calculate(newCart.calculateTotal()));
 console.log(newCart.calculateTotal());
