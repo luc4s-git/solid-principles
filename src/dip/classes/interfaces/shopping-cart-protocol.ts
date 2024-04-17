@@ -5,7 +5,7 @@ export interface ShoppingCartProtocol {
   addItem(item: CartItem): void;
   removeItem(index: number): void;
   total(): number;
-  totalWithDicount(): number;
+  totalWithDiscount(): number;
   isEmpty(): boolean;
   clear(): void;
 }

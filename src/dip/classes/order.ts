@@ -25,16 +25,10 @@ export class Order {
     }
 
     this._orderStatus = 'closed';
-    this.messaging.sendMessage(
-      `Seu pedido com total de ${this.cart.totalWithDicount()} foi recebido.`,
-    );
+    this.messaging.sendMessage(`Seu pedido com total de ${this.cart.totalWithDiscount()} foi recebido.`);
     this.persistency.saveOrder();
     this.cart.clear();
 
-    console.log(
-      'O cliente é:',
-      this.customer.getName(),
-      this.customer.getIDN(),
-    );
+    console.log('O cliente é:', this.customer.getName(), this.customer.getIDN());
   }
 }
