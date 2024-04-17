@@ -25,7 +25,7 @@ export class Order {
     this._orderStatus = 'closed';
 
     this.persistence.saveOrder();
-    this.messaging.sendMessage(`You order was placed with a total of ${this.cart.total()}.`);
+    this.messaging.sendMessage(`You order was placed with a total of ${this.cart.calculateTotalWithDiscount()}.`);
     this.cart.clearCart();
   }
 }
