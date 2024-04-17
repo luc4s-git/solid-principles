@@ -1,26 +1,20 @@
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-};
-
+type CartItem = { name: string; price: number };
 type OrderStatus = 'open' | 'closed';
 
 export class ShoppingCartLegacy {
-  private readonly _products: CartItem[] = [];
+  private readonly _items: CartItem[] = [];
   private _orderStatus: OrderStatus = 'open';
 
-  addProduct(item: CartItem): void {
-    this._products.push(item);
+  addItem(item: CartItem): void {
+    this._items.push(item);
   }
 
-  removeByIndex(index: number): void {
-    this._products.splice(index, 1);
+  removeItem(index: number): void {
+    this._items.splice(index, 1);
   }
 
-  get products(): Readonly<CartItem[]> | string {
-    if (this.isCartEmpty()) return 'You cart is currently empty.';
-    return this._products;
+  get items(): Readonly<CartItem[]> {
+    return this._items;
   }
 
   get orderStatus(): OrderStatus {
@@ -28,49 +22,48 @@ export class ShoppingCartLegacy {
   }
 
   total(): number {
-    return Number(this._products.reduce((acc, current) => acc + current.price, 0).toFixed(2));
+    return +this._items
+      .reduce((total, next) => total + next.price, 0)
+      .toFixed(2);
   }
 
   checkout(): void {
-    if (this.isCartEmpty()) {
-      console.log('Your cart is currently empty');
+    if (this.isEmpty()) {
+      console.log('Seu carrinho está vazio');
       return;
     }
 
     this._orderStatus = 'closed';
-
+    this.sendMessage(`Seu pedido com total de ${this.total()} foi recebido.`);
     this.saveOrder();
-    this.sendMessage('You order was send to the seller.');
-    this.clearCart();
+    this.clear();
   }
 
-  isCartEmpty(): boolean {
-    if (this._products.length === 0) return true;
-    return false;
+  isEmpty(): boolean {
+    return this._items.length === 0;
   }
 
   sendMessage(msg: string): void {
-    console.log(msg);
+    console.log('Mensagem enviada:', msg);
   }
 
   saveOrder(): void {
-    console.log('Order saved successfully.');
+    console.log('Pedido salvo com sucesso...');
   }
 
-  clearCart() {
-    this._products.length = 0;
+  clear(): void {
+    console.log('Carrinho de compras foi limpo...');
+    this._items.length = 0;
   }
 }
 
-const newCart = new ShoppingCartLegacy();
+const shoppingCart = new ShoppingCartLegacy();
+shoppingCart.addItem({ name: 'Camiseta', price: 49.91 });
+shoppingCart.addItem({ name: 'Caderno', price: 9.9123 });
+shoppingCart.addItem({ name: 'Lápis', price: 1.59 });
 
-newCart.addProduct({ id: 'nGo8QH6154', name: 'T-Shirt', price: 199 });
-newCart.addProduct({ id: 'Mn03bO106Z', name: 'Basketball', price: 299.9998 });
-newCart.addProduct({ id: 'qBf02W787r', name: 'Skate', price: 99 });
-newCart.addProduct({ id: 'y6X92U9ChH', name: 'RTX 2060', price: 299.99 });
-
-console.log(newCart.products);
-
-newCart.checkout();
-
-console.log(newCart.products);
+console.log(shoppingCart.items);
+console.log(shoppingCart.total());
+console.log(shoppingCart.orderStatus);
+shoppingCart.checkout();
+console.log(shoppingCart.orderStatus);
